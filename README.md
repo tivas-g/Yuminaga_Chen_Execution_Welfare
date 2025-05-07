@@ -8,9 +8,13 @@ The dataset is curated by [Yuki Yuminaga and Dex Chen](https://github.com/userna
 *For the entire-range dataset and more details of our work, stay in tune for this repo and the TLDR Conference 2025.*
 
 **size:** 11 MB
+
 **structure:** [25,812 rows, 25 columns]
+
 **source:** CEX data scraping and Tenderly simulation
+
 **blockchain:** Ethereum
+
 **variables:**
 
 | Variable | Type | Description |
@@ -43,22 +47,27 @@ The dataset is curated by [Yuki Yuminaga and Dex Chen](https://github.com/userna
 
 ## Implementation Guideline
 
-The data pipeline for this paper implements a multi-step process:
+The various scripts within the datascraping folder of this repository are used to construct the datasets below.
 
-1. **Data Collection**:
-   - Scripts scrape CEX and DEX data
-   - Parse call data to extract token volumes
-   - Move data to local databases
+1. **Parsing Scipts**:
 
-2. **Simulation & Analysis**:
-   - Tenderly scripts simulate transaction gas costs
-   - Calculate execution simulations and MM output amounts
-   - Fetch gas prices for each block where swaps occur
-   - Compute mean gas price and standard deviation
+   - parseCowCalldata.py, parseUnixCalldata.py, parse1inchCalldata.py
+   - These scripts parse the call data of our DEX trades to get the token, volume.
 
-3. **Welfare Metrics**:
-   - Solver executed price calculation (output/input ratios)
-   - Markout percentage against Binance prices
-   - Welfare comparison between solver execution and simulated V2/V3 trades
+2. **Tenderly Scripts**:
+
+   - newTenderly.py, pepeTenderly.py
+   - Tenderly scripts simulate the trade execution and the gas cost.
+
+3. **Calculate Execution Script**:
+
+   - calcExecution.py, getGas3.py
+   - Analyzes the logs of the trades to pull information about the swap used in the data, including the from_address, to_address, amount, and the reserve tokens in the swap's pool.
+   - The gas script pulls the gas cost for the swap, used for the realistic_gas column.
+
+4. **Main Scripts**:
+   - main1inch.py, main1inchMemeLocalDB.py, mainCowMemeLocalDB.py, mainUnix.py, mainUnixMemeLocalDB.py
+   - These files call functions from the other scripts to comipile the dataset for trades from 1inch, UniswapX, CowSwap, and for meme tokens. 
 
 
+Several API keys will be needed to run these scripts, including those from Infura, Alchemy, and Tenderly. The final version of the data used in the paper can be found in this repository and on the TLDR data frontend.
