@@ -22,8 +22,8 @@ The dataset is curated by [Yuki Yuminaga and Dex Chen](https://github.com/userna
 | `tx_hash` | STRING | Transaction hash identifier |
 | `block_no` | INTEGER | Block number of the transaction |
 | `venue` | STRING | Trading venue (DEX name) |
-| `input_asset` | STRING | Input token symbol |
-| `output_asset` | STRING | Output token symbol |
+| `input_asset` | STRING | Input token address |
+| `output_asset` | STRING | Output token address |
 | `input_amount` | FLOAT | Amount of input token |
 | `output_amount` | FLOAT | Amount of output token received |
 | `reserve0` | FLOAT | First token reserve in the liquidity pool |
